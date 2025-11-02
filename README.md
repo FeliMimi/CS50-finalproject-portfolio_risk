@@ -1,7 +1,7 @@
 # CS50 Final Project - Portfolio Risk Analysis
 
 ## Description
-This project evaluates the risk of an investment portfolio using Monte Carlo methods. It should calculate Value at Risk (VaR) and Conditional Var (CVaR) based on historical stock data.
+This project evaluates the risk of an investment portfolio using Monte Carlo methods. It should calculate Value at Risk (VaR) and Conditional Var (CVaR) based on historical stock data. 
 
 ## Technologies
 - Python
