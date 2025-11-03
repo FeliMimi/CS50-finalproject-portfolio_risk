@@ -1,0 +1,24 @@
+{% extends layout.html %}
+
+{% block head %}
+Homepage 
+{% endblock %}
+
+{% block main %}
+    <div>
+        <h2>Welcome to the Monte Carlo Portfolio Risk Analysis Tool</h2>
+        <p>This tool allows you to perform Monte Carlo simulations to analyze the risk of your investment portfolio. You can input your portfolio details, run simulations, and view the results to make informed decisions.</p>
+    </div>
+    <form action="/simulate" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control" name="symbol" type="text" placeholder="Enter Stock Symbol" required>
+        </div>
+        <div>
+            <input autocomplete="off" class="form-control mx-auto w-auto" name="weight" placeholder="Weight for this stock" type="number" required>
+        </div>
+
+        <div>
+        <button type="submit" class="btn btn-primary">Start Simulation</button>
+        </div>
+    </form>
+{% endblock %}
