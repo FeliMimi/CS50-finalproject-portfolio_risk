@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block head %}
+Simulation Results
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Simulation Results</h2>
+
+    {% if result %}
+        <div class="results-summary mb-4">
+            <h4>Summary:</h4>
+            <pre>{{ result }}</pre>
+        </div>
+    {% endif %}
+
+    {% if plots %}
+        <div class="plots">
+            <h4>Plots:</h4>
+            {% for plot in plots %}
+                <div class="plot mb-3 text-center">
+                    <img src="data:image/png;base64,{{ plot }}" alt="Simulation Plot" class="plot-img">
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Homepage</a>
+    </div>
+</div>
+{% endblock %}
