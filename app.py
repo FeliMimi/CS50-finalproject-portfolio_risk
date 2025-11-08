@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request
 
 import simulation # Import the simulation module
 
@@ -44,7 +44,7 @@ def index():
                 T_days=T_days
                 )
             return render_template('results.html', results=results, plots=plots,
-                                    mean_ret=mean_ret, std_ret=std_ret, median_ret=median_ret,
+                                    mean_ret=mean_ret, median_ret=median_ret,std_ret=std_ret,
                                     n_sims=n_sims, T_days=T_days) 
 
 

@@ -16,9 +16,9 @@ Simulation Results
             Based on {{ n_sims }} simulations over {{ T_days }} days
         </p>
         <p class="text-center mb-0">
-            <strong>Mean return:</strong> {{ '%.4f'|format(mean_ret) }}% | 
-            <strong>Median return:</strong> {{ '%.4f'|format(median_ret) }}% | 
-            <strong>Std Dev:</strong> {{ '%.4f'|format(std_ret) }}%
+            <strong>Mean return:</strong> {{ (mean_ret * 100)|round(4) }}% | 
+            <strong>Median return:</strong> {{ (median_ret * 100)|round(4) }}% | 
+            <strong>Std Dev:</strong> {{ (std_ret * 100)|round(4) }}%
         </p>
         </div>
     </div>

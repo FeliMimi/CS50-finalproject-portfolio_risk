@@ -8,51 +8,25 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
-def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.95, 0.99], seed=42):
-    """Run Monte Carlo simulation for portfolio VaR and ES estimation.
-
-    Parameters:
-    tickers : list of str
-        List of asset tickers.
-    weights : np.array
-        Portfolio weights corresponding to the tickers.
-    n_sims : int
-        Number of Monte Carlo simulations.
-    T_days : int
-        Time horizon in days.
-    dt : float
-        Time step in years (default is 1/252 for daily steps).
-    var_levels : list of float
-        List of VaR confidence levels (default [0.95, 0.99]).
-    seed : int
-        Random seed for reproducibility (default 42).
-
-    Returns:
-    results : dict
-        Dictionary containing VaR, ES, and summary statistics.
-    plots : list of str
-        List of Base64 encoded plot images.
-    mean_ret : float
-        Mean portfolio return over the horizon.
-    std_ret : float
-        Standard deviation of portfolio return over the horizon.
-    median_ret : float 
-        Median portfolio return over the horizon.
-    """
+def run_simulation(tickers, weights, n_sims, T_days, var_levels=[0.95, 0.99], seed=42):
+ 
     # set start end end date for market data request
     end_date = datetime.today()
-    start_date = end_date - timedelta(days=365*3)  # last 3 years
+    start_date = end_date - timedelta(days=365*4)  # last 4 years
 
     # loading adjusted close prices
-    data = yf.download(tickers, start=start_date, end=end_date, interval="1d", auto_adjust=False)['Adj Close']
+    data = yf.download(tickers, start=start_date, end=end_date, interval="1d")['Close']
+    data = data.dropna()
 
     # getting the necessery parameters
     log_rets = np.log(data / data.shift(1)).dropna()
-    mu = log_rets.mean().values * 252  # annualized mean
-    cov_matrix = log_rets.cov().values * 252  # annualized covariance
+    daily_mu = log_rets.mean().values # daily mean returns
+    daily_sigma = log_rets.cov().values # daily covariance matrix
+    daily_variance = np.diag(daily_sigma)
+    drift = (daily_mu - 0.5 * daily_variance)
 
     # Cholesky decomposition
-    L = np.linalg.cholesky(cov_matrix)
+    L_daily = np.linalg.cholesky(daily_sigma)
 
     # simulation settings
     np.random.seed(seed)
@@ -67,6 +41,9 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
     example_paths = np.zeros((plot_sample_paths, T_days +1, n_assets))
     example_portfolio_paths = np.zeros((plot_sample_paths, T_days + 1))
 
+    # Check for valid covariance matrix
+    if not np.all(np.isfinite(daily_sigma)) or np.linalg.det(daily_sigma) <= 0:
+        raise ValueError("Invalid covariance matrix. Check your data.")
 
     # RUN MONTE CARLO SIMULATION
     for sim in range(n_sims):
@@ -77,18 +54,16 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
         # simulate day by day
         for t in range(1, T_days +1):
             Z = np.random.normal(size=n_assets)
-            correlated_Z = L @ Z * np.sqrt(dt)
+            correlated_Z = L_daily @ Z
 
             # GBM step on log scale:
-            # S_t = S_{t-1} * exp( (mu - 0.5*diag(cov)) * dt + correlated )
-            drift = ( mu - 0.5 * np.diag(cov_matrix)) * dt
             prices[t] = prices[t-1] * np.exp(drift + correlated_Z)
 
         # computing final results
         final_prices = prices[-1]
         asset_returns = (final_prices / S0) - 1.0
         portfolio_return = np.dot(weights, asset_returns)
-        portfolio_end_values[sim] = 1.0 + portfolio_return
+        portfolio_end_values[sim] = portfolio_return
 
         # save example paths
         if sim < plot_sample_paths:
@@ -96,8 +71,8 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
             example_portfolio_paths[sim] = (prices @ weights) / (S0 @ weights)
 
     # ANALYZE RESULTS: DISTRIBUTION, VaR, ES
-
-    portfolio_returns = portfolio_end_values - 1.0
+    portfolio_returns = portfolio_end_values
+    log_returns = np.log(portfolio_returns + 1.0)
 
     # compute VaR and ES
     results = {}
@@ -112,7 +87,7 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
     # compute summary stats
     mean_ret = portfolio_returns.mean()
     median_ret = np.median(portfolio_returns)
-    std_ret = portfolio_returns.std()
+    std_ret = np.std(log_returns)
 
     # ==== OUTPUT ====
   
@@ -158,4 +133,14 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
 
     plots = [plot1_base64, plot2_base64]
 
-    return results, plots, mean_ret, std_ret, median_ret
+    print(f"S0: {S0}")
+    print(f"Final prices example: {prices[-1]}")
+    print(f"Asset returns example: {asset_returns}")
+    print(f"Portfolio return example: {portfolio_return}")
+    print(f"Min/Max portfolio_returns: {portfolio_returns.min()}, {portfolio_returns.max()}")
+    
+    print(f"Daily mu: {daily_mu}")
+    print(f"Daily variance: {np.diag(daily_sigma)}")
+    print(f"Drift: {drift}")
+
+    return results, plots, mean_ret, median_ret, std_ret
