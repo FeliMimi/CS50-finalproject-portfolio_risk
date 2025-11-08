@@ -9,7 +9,34 @@ import io
 import base64
 
 def run_simulation(tickers, weights, n_sims, T_days, var_levels=[0.95, 0.99], seed=42):
- 
+    """Run Monte Carlo simulation for portfolio VaR and ES estimation.
+
+    Parameters:
+    tickers : list of str
+        List of asset tickers.
+    weights : np.array
+        Portfolio weights corresponding to the tickers.
+    n_sims : int
+        Number of Monte Carlo simulations.
+    T_days : int
+        Time horizon in days.
+    var_levels : list of float
+        List of VaR confidence levels (default [0.95, 0.99]).
+    seed : int
+        Random seed for reproducibility (default 42).
+
+    Returns:
+    results : dict
+        Dictionary containing VaR, ES, and summary statistics.
+    plots : list of str
+        List of Base64 encoded plot images.
+    mean_ret : float
+        Mean portfolio return over the horizon.
+    std_ret : float
+        Standard deviation of portfolio return over the horizon.
+    median_ret : float 
+        Median portfolio return over the horizon.
+    """
     # set start end end date for market data request
     end_date = datetime.today()
     start_date = end_date - timedelta(days=365*4)  # last 4 years
