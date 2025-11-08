@@ -24,13 +24,15 @@ def index():
                 return redirect(url_for('index'))
             
             # run simulation
-            results, plots = simulation.run_simulation(
+            results, plots, mean_ret, median_ret, std_ret = simulation.run_simulation(
                 tickers=tickers, 
                 weights=weights, 
                 n_sims=n_sims, 
                 T_days=T_days
                 )
-            return render_template('results.html', result=results, plots=plots)
+            return render_template('results.html', results=results, plots=plots,
+                                    mean_ret=mean_ret, std_ret=std_ret, median_ret=median_ret,
+                                    n_sims=n_sims, T_days=T_days) 
     
         except Exception as e:
             flash(f"An error occurred: {str(e)}", "error")
