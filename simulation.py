@@ -32,10 +32,10 @@ def run_simulation(tickers, weights, n_sims, T_days, var_levels=[0.95, 0.99], se
         List of Base64 encoded plot images.
     mean_ret : float
         Mean portfolio return over the horizon.
-    std_ret : float
-        Standard deviation of portfolio return over the horizon.
     median_ret : float 
         Median portfolio return over the horizon.
+    std_ret : float
+        Standard deviation of portfolio return over the horizon.
     """
     # set start end end date for market data request
     end_date = datetime.today()
