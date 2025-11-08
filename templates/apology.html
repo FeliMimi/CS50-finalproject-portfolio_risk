@@ -1,15 +1,15 @@
-{{% extends "layout.html" %}}
+{% extends "layout.html" %}
 
-{{% block head %}}
+{% block head %}
 Apology
-{{% endblock %}}
+{% endblock %}
 
-{{% block content %}}
+{% block content %}
 <div class="container text-center">
     <h2 class="mb-4">We're Sorry</h2>
     <p class="mb-3">Unfortunately, an error occurred while processing your request.</p>
     <p class="mb-4"> {{ apology }}</p>
     <p class="mb-4">Please return to homepage and try again </p>
-    <a href="{{{{ url_for('index') }}}}" class="btn btn-primary">Return to Homepage</a>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Homepage</a>
 </div>
-{{% endblock %}}
+{% endblock %}

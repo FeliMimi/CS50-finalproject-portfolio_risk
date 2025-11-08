@@ -38,8 +38,8 @@ Simulation Results
           {% for alpha, result in results.items() %}
           <tr>
             <td>{{ (alpha * 100)|int }}%</td>
-            <td>{{ "{:.4f}".format(result.VaR) }}%</td>
-            <td>{{ "{:.4f}".format(result.ES) }}%</td>
+            <td>{{ (result.VaR * 100)|round(3) }}%</td>
+            <td>{{ (result.ES * 100)| round(4) }}%</td>
             <td>{{ result.num_tail_obs }}</td>
           </tr>
           {% endfor %}

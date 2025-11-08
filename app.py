@@ -46,10 +46,11 @@ def index():
             return render_template('results.html', results=results, plots=plots,
                                     mean_ret=mean_ret, std_ret=std_ret, median_ret=median_ret,
                                     n_sims=n_sims, T_days=T_days) 
-        
-        except Exception as e:
-            flash(f"An error occurred: {str(e)}", "error")
-            return render_template('apology.html', apology=str(e))
+
+
+        except Exception:
+            apology = "The ticker was not found.  Or something else went wrong. Please check the ticker symbol and try again."
+            return render_template('apology.html', apology= apology)
             
     # Fallback to home if not POST
     return render_template('index.html')
