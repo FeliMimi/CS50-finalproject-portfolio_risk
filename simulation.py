@@ -48,8 +48,8 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
 
     # getting the necessery parameters
     log_rets = np.log(data / data.shift(1)).dropna()
-    mu = log_rets.mean().values
-    cov_matrix = log_rets.cov().values
+    mu = log_rets.mean().values * 252  # annualized mean
+    cov_matrix = log_rets.cov().values * 252  # annualized covariance
 
     # Cholesky decomposition
     L = np.linalg.cholesky(cov_matrix)
@@ -93,7 +93,7 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
         # save example paths
         if sim < plot_sample_paths:
             example_paths[sim] = prices
-            example_portfolio_paths[sim] = np.sum(prices * weights, axis=1)
+            example_portfolio_paths[sim] = (prices @ weights) / (S0 @ weights)
 
     # ANALYZE RESULTS: DISTRIBUTION, VaR, ES
 
@@ -103,7 +103,7 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
     results = {}
     for alpha in var_levels:
         losses = - portfolio_returns
-        var_quantile = np.quantile(losses, 1 - alpha)
+        var_quantile = np.quantile(losses, alpha)
         tail_losses = losses[losses >= var_quantile]
         es = tail_losses.mean() if len(tail_losses) > 0 else np.nan
 
@@ -138,7 +138,7 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
 
     # overlay VaR lines
     for alpha, res in results.items():
-        ax1.axvline(x=-res['VaR'], linestyle='--', label=f"{int(alpha*100)}% VaR = {-res['VaR']:.2%}")
+        ax1.axvline(x=-res['VaR'], linestyle='--', label=f"{int(alpha*100)}% VaR = {res['VaR']:.2%}")
     ax1.legend()
 
     # convert to base64
