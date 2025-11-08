@@ -114,14 +114,8 @@ def run_simulation(tickers, weights, n_sims, T_days, dt=1.0/252, var_levels=[0.9
     median_ret = np.median(portfolio_returns)
     std_ret = portfolio_returns.std()
 
-    # OUTPUT
-    print("Portfolio horizon (days):", T_days)
-    print("Number of simulations:", n_sims)
-    print("Portfolio return summary (simple returns over horizon):")
-    print(f" mean = {mean_ret:.4%}, median = {median_ret:.4%}, std = {std_ret:.4%}")
-    for alpha, res in results.items():
-        print(f"{int(alpha*100)}% VaR (loss): {res['VaR']:.4%}, ES: {res['ES']:.4%}, tail observations: {res['num_tail_obs']}")
-
+    # ==== OUTPUT ====
+  
     # function to convert plots to Base64 strings for HTML embedding
     def fig_to_base64(fig):
         buf = io.BytesIO()
