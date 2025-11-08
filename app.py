@@ -16,13 +16,26 @@ def index():
             
             # control inputs
             if len(tickers) != len(weights):
-                flash("Number of tickers must match number of weights.", "error")
-                return redirect(url_for('index'))
+                apology = "Number of tickers must match number of weights."
+                return render_template("apology.html", apology=apology)
             
             if abs(sum(weights) - 1.0) > 1e-5:
-                flash("Weights must sum to 1.", "error")
-                return redirect(url_for('index'))
+                apology = "Weights must sum to 1."
+                return render_template("apology.html", apology=apology)
             
+            if n_sims <= 0 or T_days <= 0:
+                apology = "Number of simulations and days must be positive integers."
+                return render_template("apology.html", apology=apology)
+            
+            if not tickers:
+                apology = "At least one ticker must be provided."
+                return render_template("apology.html", apology=apology)
+            
+            if any(w < 0 for w in weights):
+                apology = "Weights must be non-negative."
+                return render_template("apology.html", apology=apology)
+            
+
             # run simulation
             results, plots, mean_ret, median_ret, std_ret = simulation.run_simulation(
                 tickers=tickers, 
@@ -33,10 +46,10 @@ def index():
             return render_template('results.html', results=results, plots=plots,
                                     mean_ret=mean_ret, std_ret=std_ret, median_ret=median_ret,
                                     n_sims=n_sims, T_days=T_days) 
-    
+        
         except Exception as e:
             flash(f"An error occurred: {str(e)}", "error")
-            return redirect(url_for('index'))
+            return render_template('apology.html', apology=str(e))
             
     # Fallback to home if not POST
     return render_template('index.html')

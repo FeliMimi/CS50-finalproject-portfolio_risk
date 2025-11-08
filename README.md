@@ -13,3 +13,7 @@ It loads historical finance data using the [`yfinance`](https://pypi.org/project
 The simulation results are then analyzed and used to compute several **key performance indicators(KPIs)** commonly used in financial analysis (e.g. Value at Risk, Expected Shortfall). 
 The function also generates two plots. The first one is a histogram that displays the portfolio returns with overlayed **Value at Risk** lines. The second one is visually interesting. It shows some example paths for the portfolio returns. These plots are converted to **Base64-encoded strings'' so that they can be rendered directly on the web interface.
 The function returns the two generated plots (as Base64 strings) and the computed financial key metrics that were calculated in the simulation.
+
+
+##### app.py
+This file handles all the flask related stuff. It combines `simulation.py` and all the relevant `.html` files. Only a single route is needed because we 
