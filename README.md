@@ -75,5 +75,6 @@ It defines general layout, typography, form inputs, buttons, and the results pag
 #### Other Files
 
 The project also includes a `requirements.txt` file, which lists all the modules necessary to run the program.  
-Additionally, there is a `.gitignore` file and a `/venv` folder that contains the files for a virtual environment.
+Additionally, a `.gitignore` file is included to ensure that unnecessary files are not pushed to Git.
+
 
