@@ -23,7 +23,7 @@ The function loads historical financial data using the [`yfinance`](https://pypi
 
 Next, several arrays are initialized to store the simulation results. For visualization purposes, around 100 example paths from the simulation are stored separately.  
 
-The simulation itself uses **Geometric Brownian Motion (GBM)** to calculate a number of possible future developments for the portfolio. The GBM formula is applied within two nested `for` loops:  
+The simulation itself uses **Geometric Brownian Motion (GBM)** to calculate a number of possible future developments for the portfolio. The GBM formula is applied within two nested for-loops:  
 one iterates over each day (`T_days`), and the other over the number of simulations provided by the user (`n_sims`). This double loop currently limits execution speed — one of these loops could be **vectorized** using NumPy to significantly improve efficiency.
 However, this was not implemented to keep the codebase simpler and easier to understand within the scope of CS50.
 
@@ -70,7 +70,7 @@ There are four `.html` templates in the project:
 
 A small **.css** file used for styling the web application. It was largely written with the help of ChatGPT and GitHub Copilot.  
 
-It defines general layout, typography, form inputs, buttons, and the results page. Features include responsive input fields, styled submit and add buttons, containers with shadows, and basic flexbox layouts for plots and stock entry fields. The design aims for a clean, user-friendly interface and is held pretty minimalistic.
+It defines general layout, typography, form inputs, buttons, and the results page. Features include responsive input fields, styled submit and add buttons, containers with shadows, and basic flexbox layouts for plots and stock entry fields. The design aims for a clean, user-friendly interface and is kept pretty minimalistic.
 
 #### Other Files
 
