@@ -52,11 +52,28 @@ If the route is accessed via a method other than `POST`, the homepage (`index.ht
 #### templates
 
 There are four `.html` templates in the project:
-   - `layout.html`: Here the basic design of the Web-application is defined. Both a **.css** file and **Bootstrap** is included.
-   Some other design features include a header and footnote for the website.
-   - `index-html`: This is the homepage, where the user can enter his portfolio details and the parameters for the simulation. The button to add another stock is conected to some JavaScript code so it can be done dynamically. The users input is here controlled **client side** as to provide a more user-friendly experience.
-   - `results.html`: Here the results of the simualtion are displayed. BUt firat of all there is a disclaimer, that the results should not be used for real investements, because they are calculated on simplified models and assumptions. 
-   Mean return, median return and standard deviation are displayed as text.
-   VaR, ES and the number of tail observations are displayed in a table for better clarity.
-   Below that the two plots are displayed as Base64-strings.
-   There is also a button to return to the homepage.
+
+- `layout.html`: Defines the basic design of the web application. A **.css** file and **Bootstrap** are included. Other design elements include a header and a footer for the website.
+
+- `index.html`: This is the homepage, where users can enter their portfolio details and parameters for the simulation. The button to add another stock is connected to JavaScript code, allowing dynamic additions. User input is validated **client-side** to provide a more user-friendly experience.
+
+- `results.html`: Displays the simulation results. At the top, a disclaimer informs users that the results should not be used for real investments, as they are based on simplified models and assumptions.  
+  Mean return, median return, and standard deviation are shown as text.  
+  VaR, ES, and the number of tail observations are presented in a table for clarity.  
+  Below the table, two plots are displayed as Base64 strings.  
+  A button is provided to return to the homepage.
+
+- `apology.html`: Displays an error message when something goes wrong during the simulation. A button redirects users back to the homepage.
+
+
+#### static
+
+A small **.css** file used for styling the web application. It was largely written with the help of ChatGPT and GitHub Copilot.  
+
+It defines general layout, typography, form inputs, buttons, and the results page. Features include responsive input fields, styled submit and add buttons, containers with shadows, and basic flexbox layouts for plots and stock entry fields. The design aims for a clean, user-friendly interface and is held pretty minimalistic.
+
+#### Other Files
+
+The project also includes a `requirements.txt` file, which lists all the modules necessary to run the program.  
+Additionally, there is a `.gitignore` file and a `/venv` folder that contains the files for a virtual environment.
+
