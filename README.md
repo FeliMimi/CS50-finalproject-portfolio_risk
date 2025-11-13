@@ -52,7 +52,11 @@ If the route is accessed via a method other than `POST`, the homepage (`index.ht
 #### templates
 
 There are four `.html` templates in the project:
-   - `layout.html` : Here the basic design of the Web-application is defined. Both a **.css** file and **Bootstrap** is included.
+   - `layout.html`: Here the basic design of the Web-application is defined. Both a **.css** file and **Bootstrap** is included.
    Some other design features include a header and footnote for the website.
-   - `index-html` : This is the homepage, where the user can enter his portfolio details and the parameters for the simulation. The button to add another stock is conected to some JavaScript code so it can be done dynamically. The users input is here controlled **client side** as to provide a more user-friendly experience.
-   
+   - `index-html`: This is the homepage, where the user can enter his portfolio details and the parameters for the simulation. The button to add another stock is conected to some JavaScript code so it can be done dynamically. The users input is here controlled **client side** as to provide a more user-friendly experience.
+   - `results.html`: Here the results of the simualtion are displayed. BUt firat of all there is a disclaimer, that the results should not be used for real investements, because they are calculated on simplified models and assumptions. 
+   Mean return, median return and standard deviation are displayed as text.
+   VaR, ES and the number of tail observations are displayed in a table for better clarity.
+   Below that the two plots are displayed as Base64-strings.
+   There is also a button to return to the homepage.

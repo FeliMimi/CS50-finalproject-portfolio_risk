@@ -5,66 +5,70 @@ Simulation Results
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h2 class="text-center mb-4">Simulation Results</h2>
+<div class="text-center mb-4">
+    <p>Please note that this simulation does not guarantee the below results.</p>
+    <p>The results are based on historical data of the last 4 years and statistical models, which may not accurately predict future performance.</p>
+    <p>Invest responsibly and consider consulting a financial advisor for personalized advice.</p>
+  <div class="container">
+    <h2 class="text-center mb-4">Simulation Results</h2>
 
-  {% if results %}
+
+    {% if results %}
     <div class="card mx-auto mb-4 shadow-sm" style="max-width: 900px;">
-        <div class="card-body">
+      <div class="card-body">
         <h4 class="card-title text-center mb-3">Portfolio Return Summary</h4>
         <p class="text-center mb-1">
-            Based on {{ n_sims }} simulations over {{ T_days }} days
+          Based on {{ n_sims }} simulations over {{ T_days }} days
         </p>
         <p class="text-center mb-0">
-            <strong>Mean return:</strong> {{ (mean_ret * 100)|round(4) }}% | 
-            <strong>Median return:</strong> {{ (median_ret * 100)|round(4) }}% | 
-            <strong>Std Dev:</strong> {{ (std_ret * 100)|round(4) }}%
+          <strong>Mean return:</strong> {{ (mean_ret * 100)|round(4) }}% | 
+          <strong>Median return:</strong> {{ (median_ret * 100)|round(4) }}% | 
+          <strong>Std Dev:</strong> {{ (std_ret * 100)|round(4) }}%
         </p>
-        </div>
+      </div>
     </div>
 
-  <div class="d-flex justify-content-center mb-4">
-    <div class="table-responsive" style="max-width: 800px; width: 100%;">
-      <table class="table table-bordered text-center align-middle mb-0 w-100">
-        <thead class="table-light">
-          <tr>
-            <th scope="col">Confidence Level</th>
-            <th scope="col">VaR (loss)</th>
-            <th scope="col">ES</th>
-            <th scope="col">Tail Observations</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for alpha, result in results.items() %}
-          <tr>
-            <td>{{ (alpha * 100)|int }}%</td>
-            <td>{{ (result.VaR * 100)|round(3) }}%</td>
-            <td>{{ (result.ES * 100)| round(4) }}%</td>
-            <td>{{ result.num_tail_obs }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  {% else %}
-  <p class="text-center text-muted">No results available.</p>
-  {% endif %}
-</div>
-
-    {% if plots %}
-        <div class="plots">
-            <h4>Plots:</h4>
-            {% for plot in plots %}
-                <div class="plot mb-3 text-center">
-                    <img src="data:image/png;base64,{{ plot }}" alt="Simulation Plot" class="plot-img">
-                </div>
+    <div class="d-flex justify-content-center mb-4">
+      <div class="table-responsive" style="max-width: 800px; width: 100%;">
+        <table class="table table-bordered text-center align-middle mb-0 w-100">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Confidence Level</th>
+              <th scope="col">VaR (loss)</th>
+              <th scope="col">ES</th>
+              <th scope="col">Tail Observations</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for alpha, result in results.items() %}
+            <tr>
+              <td>{{ (alpha * 100)|int }}%</td>
+              <td>{{ (result.VaR * 100)|round(3) }}%</td>
+              <td>{{ (result.ES * 100)| round(4) }}%</td>
+              <td>{{ result.num_tail_obs }}</td>
+            </tr>
             {% endfor %}
-        </div>
-    {% endif %}
-
-    <div class="text-center mt-4">
-        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Homepage</a>
+          </tbody>
+        </table>
+      </div>
     </div>
+    {% else %}
+    <p class="text-center text-muted">No results available.</p>
+    {% endif %}
+  </div>
+
+  {% if plots %} 
+  <div class="plots"> 
+    <h4>Plots:</h4> 
+    {% for plot in plots %} 
+    <div class="plot mb-3 text-center"> 
+      <img src="data:image/png;base64,{{ plot }}" alt="Simulation Plot" class="plot-img"> 
+    </div> {% endfor %} 
+  </div> 
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Homepage</a>
+  </div>
 </div>
 {% endblock %}

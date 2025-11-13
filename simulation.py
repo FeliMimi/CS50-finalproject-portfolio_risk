@@ -140,7 +140,7 @@ def run_simulation(tickers, weights, n_sims, T_days, var_levels=[0.95, 0.99], se
 
     # overlay VaR lines
     for alpha, res in results.items():
-        ax1.axvline(x=-res['VaR'], linestyle='--', label=f"{int(alpha*100)}% VaR = {res['VaR']:.2%}")
+        ax1.axvline(x=-res['VaR'], linestyle='--', color="red", label=f"{int(alpha*100)}% VaR = {res['VaR']:.2%}")
     ax1.legend()
 
     # convert to base64

@@ -6,9 +6,8 @@ Homepage
 
 {% block content %}
     <div class="text-center mb-4">
-        <p>This tool allows you to perform Monte Carlo simulations to analyze the risk of your investment portfolio. You can input your portfolio details and then run the simulation.
-            Please enter the stock tickers or other assets and their corresponding weights (as decimal numbers) in your portfolio below.
-        </p>
+        <p>This tool allows you to perform Monte Carlo simulations to analyze the risk of your investment portfolio. You can input your portfolio details and then run the simulation.</p>
+        <p>Please enter the stock tickers and their corresponding weights (as decimal numbers) in your portfolio below.</p>
     </div>
        
     <form action="{{ url_for('index') }}" method="post">
