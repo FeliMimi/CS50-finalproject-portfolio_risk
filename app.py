@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-import simulation # Import the simulation module
+import simulation # Import the simulation file
 
 app = Flask(__name__) 
 app.secret_key = "super secret string"
@@ -54,6 +54,3 @@ def index():
             
     # Fallback to home if not POST
     return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)

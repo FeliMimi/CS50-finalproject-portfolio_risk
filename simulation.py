@@ -160,14 +160,4 @@ def run_simulation(tickers, weights, n_sims, T_days, var_levels=[0.95, 0.99], se
 
     plots = [plot1_base64, plot2_base64]
 
-    print(f"S0: {S0}")
-    print(f"Final prices example: {prices[-1]}")
-    print(f"Asset returns example: {asset_returns}")
-    print(f"Portfolio return example: {portfolio_return}")
-    print(f"Min/Max portfolio_returns: {portfolio_returns.min()}, {portfolio_returns.max()}")
-    
-    print(f"Daily mu: {daily_mu}")
-    print(f"Daily variance: {np.diag(daily_sigma)}")
-    print(f"Drift: {drift}")
-
     return results, plots, mean_ret, median_ret, std_ret

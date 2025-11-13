@@ -2,7 +2,7 @@
 
 <html lang="en">
 
-<head>
+<head >
     <!--- Meta-Information -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,9 +17,11 @@
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
     crossorigin="anonymous">
     
-    {% block head %}{% endblock %}
+    
 </head>
 <body>
+    <p class="bg-light text-center text-muted py-1 mt-auto border-top">
+        {% block head %}{% endblock %}</p>
     <header class="text-center bg-light py-4 mb-4">
         <h1>Monte Carlo Portfolio Risk Analysis</h1>
     </header>

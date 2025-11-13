@@ -6,7 +6,9 @@ Homepage
 
 {% block content %}
     <div class="text-center mb-4">
-        <p>This tool allows you to perform Monte Carlo simulations to analyze the risk of your investment portfolio. You can input your portfolio details, run simulations, and view the results to make informed decisions.</p>
+        <p>This tool allows you to perform Monte Carlo simulations to analyze the risk of your investment portfolio. You can input your portfolio details and then run the simulation.
+            Please enter the stock tickers or other assets and their corresponding weights (as decimal numbers) in your portfolio below.
+        </p>
     </div>
        
     <form action="{{ url_for('index') }}" method="post">
@@ -23,6 +25,7 @@ Homepage
         
         <div class="text-center mt-3">
             <p>Please provide the following parameters for the simulation:</p>
+            <p>For performance reasons, the number of simulations should not exceed 80,000.</p>
             <input autocomplete="off" name="n_sims" placeholder="Number of simulations" type="number" class="form-control mb-2" required>
             <input autocomplete="off" name="days" placeholder="Number of days to simulate" type="number" class="form-control mb-2" required>
             <button type="submit" class="btn btn-primary mt-2">Start Simulation</button>
