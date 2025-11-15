@@ -1,5 +1,5 @@
 # CS50 Final Project - Portfolio Risk Analysis
-#### Video Demo:  <URL HERE>
+#### Video Demo: https://youtu.be/4lIzGaP_ivY
 ### Description:
 
 This project evaluates the **risk of an investment portfolio** using **Monte Carlo simulation methods**.  
